@@ -1,0 +1,23 @@
+services:
+  service1:
+    build: ./services/1/
+    environment:
+      - PORT=8080
+  service2:
+    build: ./services/2/
+    environment:
+      - PORT=8080
+  mirrorer:
+    build: ./mirrorer 
+    depends_on:
+      - service1
+      - service2
+  suricata:
+    build: ./suricata
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - suricata-data:/var/log/suricata
+    depends_on:
+      - mirrorer
