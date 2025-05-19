@@ -1,23 +1,47 @@
 services:
+  suricata:
+    build: .
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_NICE
+    volumes:
+      - ./suricata.yaml:/etc/suricata/suricata.yaml:ro
+      - ./suricata-logs:/var/log/suricata
+    networks:
+      net1:
+        ipv4_address: 192.168.7.254
+      net2:
+        ipv4_address: 192.168.8.254
+
   service1:
     build: ./services/1/
+    cap_add:
+      - NET_ADMIN
     environment:
       - PORT=8080
+    networks:
+      net1:
+        ipv4_address: 192.168.7.69
   service2:
     build: ./services/2/
+    cap_add:
+      - NET_ADMIN
     environment:
       - PORT=8080
-  mirrorer:
-    build: ./mirrorer 
-    depends_on:
-      - service1
-      - service2
-  suricata:
-    build: ./suricata
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - suricata-data:/var/log/suricata
-    depends_on:
-      - mirrorer
+    networks:
+      net2:
+        ipv4_address: 192.168.8.69
+
+volumes:
+  suricata-logs: 
+
+networks:
+  net1:
+    ipam:
+      config:
+        - subnet: 192.168.7.0/24
+  net2:
+    ipam:
+      config:
+        - subnet: 192.168.8.0/24
