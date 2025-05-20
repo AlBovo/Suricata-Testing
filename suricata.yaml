@@ -89,7 +89,7 @@ plugins:
 outputs:
   # a line based alerts log similar to Snort's fast.log
   - fast:
-      enabled: yes
+      enabled: no
       filename: fast.log
       append: yes
       #filetype: regular # 'regular', 'unix_stream' or 'unix_dgram'
@@ -178,6 +178,7 @@ outputs:
 
       types:
         - alert:
+            enabled: yes
             # payload: yes             # enable dumping payload in Base64
             # payload-buffer-size: 4 KB  # max size of payload buffer to output in eve-log
             # payload-printable: yes   # enable dumping payload in printable (lossy) format
