@@ -22,7 +22,6 @@ RUN chown suricata:suricata /etc/suricata/suricata.yaml
 COPY custom.rules /var/lib/suricata/rules/custom.rules
 RUN chown suricata:suricata /var/lib/suricata/rules/custom.rules
 
-
 RUN mkdir -p /var/log/suricata && chown -R suricata:suricata /var/log/suricata
 
 COPY start.sh .

@@ -1,1 +1,2 @@
 alert icmp any any <> any any (msg:"icmp packet found"; sid:1;)
+alert http any any <> any any (msg:"http packet found"; sid:1;)
