@@ -8,6 +8,7 @@ services:
     volumes:
       - ./suricata.yaml:/etc/suricata/suricata.yaml:ro
       - ./suricata-logs:/var/log/suricata
+      - ./rules:/var/lib/suricata/rules
     networks:
       net1:
         ipv4_address: 192.168.7.254

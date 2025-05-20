@@ -315,7 +315,8 @@ outputs:
             #md5: [body, subject]
 
         #- dnp3
-        - websocket
+        - websocket:
+            enabled: no
         #- enip
         - ftp
         - rdp
@@ -333,8 +334,10 @@ outputs:
         - rfb
         - sip
         - quic
-        - ldap
-        - pop3
+        - ldap:
+            enabled: no
+        - pop3:
+            enabled: no
         - arp:
             enabled: no        # Many events can be logged. Disabled by default
         - dhcp:
@@ -356,7 +359,8 @@ outputs:
                                        # app-layer configuration)
         - http2
         # dns over http2
-        - doh2
+        - doh2:
+            enabled: no
         - pgsql:
             enabled: no
             # passwords: yes           # enable output of passwords. Disabled by default
@@ -2271,7 +2275,7 @@ napatech:
 default-rule-path: /var/lib/suricata/rules
 
 rule-files:
-  - suricata.rules
+  - custom.rules
 
 ##
 ## Suricata as a Firewall options (experimental)

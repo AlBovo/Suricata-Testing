@@ -19,6 +19,9 @@ RUN groupadd -r suricata && useradd -r -g suricata suricata
 
 COPY suricata.yaml /etc/suricata/suricata.yaml
 RUN chown suricata:suricata /etc/suricata/suricata.yaml
+COPY custom.rules /var/lib/suricata/rules/custom.rules
+RUN chown suricata:suricata /var/lib/suricata/rules/custom.rules
+
 
 RUN mkdir -p /var/log/suricata && chown -R suricata:suricata /var/log/suricata
 
