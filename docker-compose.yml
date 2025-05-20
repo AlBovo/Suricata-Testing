@@ -1,6 +1,8 @@
 services:
   suricata:
     build: .
+    container_name: suricata
+    restart: unless-stopped
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -14,8 +16,37 @@ services:
       net2:
         ipv4_address: 192.168.8.254
 
+  logstash:
+    image: docker.elastic.co/logstash/logstash:9.0.0
+    container_name: logstash
+    restart: unless-stopped
+    volumes:
+      - ./suricata-logs:/var/log/suricata
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
+    container_name: elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+     - '3000:3000'
+    depends_on:
+      - elasticsearch
+
   service1:
     build: ./services/1/
+    container_name: service1
     cap_add:
       - NET_ADMIN
     environment:
@@ -27,6 +58,7 @@ services:
       - suricata
   service2:
     build: ./services/2/
+    container_name: service2
     cap_add:
       - NET_ADMIN
     environment:
