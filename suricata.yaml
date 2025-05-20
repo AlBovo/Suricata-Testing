@@ -184,7 +184,7 @@ outputs:
             # payload-printable: yes   # enable dumping payload in printable (lossy) format
             # payload-length: yes      # enable dumping payload length, including the gaps
             # packet: yes              # enable dumping of packet (without stream segments)
-            # metadata: no             # enable inclusion of app layer metadata with alert. Default yes
+            metadata: yes             # enable inclusion of app layer metadata with alert. Default yes
             # If you want metadata, use:
             # metadata:
               # Include the decoded application layer (ie. http, dns)
@@ -205,11 +205,19 @@ outputs:
 
             # Enable the logging of tagged packets for rules using the
             # "tag" keyword.
-            tagged-packets: yes
+            tagged-packets: no
             # Enable logging the final action taken on a packet by the engine
             # (e.g: the alert may have action 'allowed' but the verdict be
             # 'drop' due to another alert. That's the engine's verdict)
             # verdict: yes
+            fields:
+              - timestamp
+              - src_ip
+              - src_port
+              - dest_ip
+              - dest_port
+              - proto
+              - alert
         # app layer frames
         - frame:
             # disabled by default as this is very verbose.
