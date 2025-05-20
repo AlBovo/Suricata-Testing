@@ -1,1 +1,3 @@
-alert icmp any any <> any any (msg:"ICMP found"; sid:1;)
+alert http any any -> any any (msg:"HTTP Request smuggling Detected in POST request"; flow:established,to_server; content:"Content-Length"; http_header; nocase; content:"Transfer-Encoding"; http_header; nocase; content:"POST"; http_method; nocase; sid:12345; rev:1;)
+alert http any any -> any any (msg:"HTTP Request smuggling Detected in GET request"; flow:established,to_server; content:"Content-Length"; http_header; nocase; content:"Transfer-Encoding"; http_header; nocase; content:"GET"; http_method; nocase; sid:12346; rev:1;)
+
