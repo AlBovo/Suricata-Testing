@@ -7,3 +7,6 @@ alert http any any -> any any (msg:"SURICATA Command Injection Attempt Detected"
 alert http any any -> any any (msg:"SURICATA SSRF Attempt Detected";flow:established,to_server;content:"127.0.0.1";http_uri;classtype:web-application-attack;sid:1000018; rev:1;)
 alert tcp any any -> any any (msg:"SURICATA Nmap Version Scan Detected";flags:SA;sid:1000019; rev:1;)
 alert tcp any any -> any ![80,8080] (msg:"SURICATA HTTP Traffic on Non-Standard Port Detected";flow:to_server;app-layer-protocol:http;sid:1000020; rev:1;)
+alert icmp any any -> any any (msg:"SURICATA SMURF attack detected"; itype:8; threshold: type threshold, track by_src, count 5, seconds 10; sid:1000021; rev:2;)
+alert http any any -> any any (msg:"SURICATA HTTP Request smuggling Detected in POST request"; flow:established,to_server; content:"Content-Length"; http_header; nocase; content:"Transfer-Encoding"; http_header; nocase; content:"POST"; http_method; nocase; sid:12345; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request smuggling Detected in GET request"; flow:established,to_server; content:"Content-Length"; http_header; nocase; content:"Transfer-Encoding"; http_header; nocase; content:"GET"; http_method; nocase; sid:12346; rev:1;)

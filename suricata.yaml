@@ -382,7 +382,8 @@ outputs:
             # Don't log stats counters that are zero. Default: true
             #null-values: false    # False will NOT log stats counters: 0
         # bi-directional flows
-        - flow
+        - flow:
+            enabled: no
         # uni-directional flows
         #- netflow
 
