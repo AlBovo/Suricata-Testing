@@ -19,34 +19,7 @@ services:
         ipv4_address: 192.168.7.254
       net2:
         ipv4_address: 192.168.8.254
-
-  # wireguard:
-  #   image: linuxserver/wireguard
-  #   container_name: wireguard
-  #   cap_add:
-  #     - NET_ADMIN
-  #     - SYS_MODULE
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=Europe/Rome
-  #     - SERVERURL=192.168.6.2
-  #     - SERVERPORT=51820
-  #     - PEERS=2
-  #     - PEERDNS=auto
-  #     - INTERNAL_SUBNET=192.168.6.0/24
-  #   volumes:
-  #     - ./config:/config
-  #   ports:
-  #     - '51820:51820/udp'
-  #   sysctls:
-  #     net.ipv4.ip_forward: "1"
-  #     net.ipv6.conf.all.disable_ipv6: "1"
-  #   restart: unless-stopped
-  #   networks:
-  #     external:
-  #       ipv4_address: 192.168.6.2
-
+        
   logstash:
     image: docker.elastic.co/logstash/logstash:9.0.0
     container_name: logstash
@@ -82,8 +55,6 @@ services:
     container_name: service1
     cap_add:
       - NET_ADMIN
-    environment:
-      - PORT=8080
     networks:
       net1:
         ipv4_address: 192.168.7.69
@@ -94,14 +65,27 @@ services:
     container_name: service2
     cap_add:
       - NET_ADMIN
-    environment:
-      - PORT=8080
     networks:
       net2:
         ipv4_address: 192.168.8.69
+  
+  malicious_service:
+    build: ./services/malicious/
+    container_name: malicious_service
+    cap_add:
+      - NET_ADMIN
+    networks:
+      external:
+        ipv4_address:
+          192.168.6.69
+    depends_on:
+      - suricata
+    volumes:
+      - ./scripts:/scripts
 
 volumes:
   suricata-logs: 
+  scripts:
 
 networks:
   external:
@@ -109,12 +93,10 @@ networks:
       config:
         - subnet: 192.168.6.0/24
   net1:
-    internal: true
     ipam:
       config:
         - subnet: 192.168.7.0/24
   net2:
-    internal: true
     ipam:
       config:
         - subnet: 192.168.8.0/24

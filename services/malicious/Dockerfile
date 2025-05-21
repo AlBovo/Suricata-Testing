@@ -5,4 +5,6 @@ RUN apk add curl \
 && apk add coreutils
 
 COPY start.sh .
+COPY run_scripts.sh .
+
 ENTRYPOINT [ "./start.sh" ]
