@@ -11,6 +11,6 @@ logs:
 	docker compose logs -f
 
 clean:
-	@echo "Cleaning, if an error occurs, try using sudo" 
 	docker compose down --volumes --remove-orphans
-	rm -rf suricata-logs
+	sudo rm -rf suricata-logs/
+	sudo rm -rf config/
