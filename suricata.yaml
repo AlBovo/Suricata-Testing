@@ -16,11 +16,7 @@ vars:
   # more specific is better for alert accuracy and performance
   address-groups:
     HOME_NET: "[192.168.7.0/24,192.168.8.0/24]"
-    KNOWN_DEVICES:
-      - 192.168.7.69
-      - 192.168.7.254
-      - 192.168.8.69
-      - 192.168.8.254
+    KNOWN_DEVICES: "[192.168.7.69, 192.168.7.254, 192.168.8.69, 192.168.8.254]"
     UNKNOWN_DEVICES: "[!$KNOWN_DEVICES, $HOME_NET]"
 
     #HOME_NET: "[192.168.0.0/16]"
@@ -265,6 +261,7 @@ outputs:
               # applayer: yes
             #packethdr: no
         - http:
+            enabled: no
             extended: yes     # enable this for extended logging information
             # custom allows additional HTTP fields to be included in eve-log.
             # the example below adds three additional fields when uncommented

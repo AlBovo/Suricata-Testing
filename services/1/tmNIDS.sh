@@ -118,6 +118,10 @@ test_malware_c2_beacon () {
    curl -s testmynids.org/somepage.html?1234567890 -H 'User-Agent: sleep 20, Mozilla/5.0' > /dev/null # sid: 2016568
 }
 
+test_internal_ddos () {
+  for i in $(seq 1 50); do echo $i | nc google.com 80; done
+}
+
 
 test_uid;
 test_basicauth;
@@ -134,3 +138,4 @@ test_url_shortener;
 test_gaming;
 test_adware_pup;
 test_malware_c2_beacon;
+test_internal_ddos;

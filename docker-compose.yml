@@ -20,35 +20,35 @@ services:
       net2:
         ipv4_address: 192.168.8.254
         
-  logstash:
-    image: docker.elastic.co/logstash/logstash:9.0.0
-    container_name: logstash
-    restart: unless-stopped
-    volumes:
-      - ./suricata-logs:/var/log/suricata
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
-    depends_on:
-      - elasticsearch
+  # logstash:
+  #   image: docker.elastic.co/logstash/logstash:9.0.0
+  #   container_name: logstash
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./suricata-logs:/var/log/suricata
+  #     - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+  #   depends_on:
+  #     - elasticsearch
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
-    container_name: elasticsearch
-    restart: unless-stopped
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - xpack.security.http.ssl.enabled=false
-      - ES_JAVA_OPTS=-Xms2g -Xmx2g
-    mem_limit: 2g # it keeps exploding
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
+  #   container_name: elasticsearch
+  #   restart: unless-stopped
+  #   environment:
+  #     - discovery.type=single-node
+  #     - xpack.security.enabled=false
+  #     - xpack.security.http.ssl.enabled=false
+  #     - ES_JAVA_OPTS=-Xms2g -Xmx2g
+  #   mem_limit: 2g # it keeps exploding
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    restart: unless-stopped
-    ports:
-     - '3000:3000'
-    depends_on:
-      - elasticsearch
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   restart: unless-stopped
+  #   ports:
+  #    - '3000:3000'
+  #   depends_on:
+  #     - elasticsearch
 
   service1:
     build: ./services/1/
@@ -69,6 +69,15 @@ services:
       net2:
         ipv4_address: 192.168.8.69
   
+  service3:
+    build: ./services/3/
+    container_name: service3
+    cap_add:
+      - NET_ADMIN
+    networks:
+      net2:
+        ipv4_address: 192.168.8.70
+
   malicious_service:
     build: ./services/malicious/
     container_name: malicious_service

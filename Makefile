@@ -18,6 +18,7 @@ clean:
 test:
 	@echo "Running tests..."
 	docker exec malicious_service sh -c "./run_scripts.sh"
+	echo "start" | nc 192.168.8.70 5000
 	@echo "Tests completed."
 
 test-internal:
