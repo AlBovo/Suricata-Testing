@@ -16,6 +16,13 @@ vars:
   # more specific is better for alert accuracy and performance
   address-groups:
     HOME_NET: "[192.168.7.0/24,192.168.8.0/24]"
+    KNOWN_DEVICES:
+      - 192.168.7.69
+      - 192.168.7.254
+      - 192.168.8.69
+      - 192.168.8.254
+    UNKNOWN_DEVICES: "[!$KNOWN_DEVICES, $HOME_NET]"
+
     #HOME_NET: "[192.168.0.0/16]"
     #HOME_NET: "[10.0.0.0/8]"
     #HOME_NET: "[172.16.0.0/12]"
