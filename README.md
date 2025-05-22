@@ -4,11 +4,11 @@
 Setup suricata in IDS mode (and IPS if needed) to protect a simulated industrial network.
 
 ## Network structure
-     +-----+         +-----+
-     |  A  |         |  B  |
-     +-----+         +-----+
-         \             /
-          \           /
+     +-----+         +-----+   +-----+
+     |  A  |         |  B  |   |  U  |
+     +-----+         +-----+   +-----+ 
+         \             /         /
+          \           /---------
            \         /
              +-----+           +-----+
              |  S  | --------- |  M  |
@@ -21,7 +21,7 @@ Setup suricata in IDS mode (and IPS if needed) to protect a simulated industrial
 S is the main router and sniffs the forwarded packets to find potential threats using suricata. The ruleset is defined in custom.rules and to use it you need to decomment "suricata-update" in start.sh.
 
 ## Tests
-the scripts to run from the Malicious container (M) are in the scripts folder and should make requests to the internal network for suricata to see the traffic.
+the scripts to run from the Malicious container (M) are in the scripts folder and should make requests to the internal network for suricata to see the traffic. U is an unauthorized host and its requests will be flagged with the current rules.
 
 ## GUI
 The gui is accessible at http://localhost:3000
