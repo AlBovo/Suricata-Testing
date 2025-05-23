@@ -13,7 +13,6 @@ logs:
 clean:
 	docker compose down --volumes --remove-orphans
 	sudo rm -rf suricata-logs/
-	sudo rm -rf config/
 
 test:
 	@echo "Running tests..."
