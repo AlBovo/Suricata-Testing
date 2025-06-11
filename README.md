@@ -1,7 +1,7 @@
 # 🛡️ Suricata-Testing 🛡️
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![GitHub issues](https://img.shields.io/github/issues/user/repo.svg)](https://GitHub.com/user/repo/issues/)
+[![GitHub issues](https://img.shields.io/github/issues/user/repo.svg)](https://GitHub.com/AlBovo/Suricata-Testing/issues/)
 
 ## 🎯 Objective
 Setup Suricata in IDS mode (and IPS if needed) to protect a simulated industrial network.
